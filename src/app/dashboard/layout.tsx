@@ -3,12 +3,37 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
-import { Sidebar, SidebarProvider, SidebarInset, SidebarHeader, SidebarContent, SidebarTrigger, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
+import { Sidebar, SidebarProvider, SidebarInset, SidebarHeader, SidebarContent, SidebarTrigger, SidebarMenu, SidebarMenuItem, SidebarMenuButton, useSidebar } from "@/components/ui/sidebar";
 import { KeyRound, LockKeyhole, Loader2, FileText, LayoutDashboard } from "lucide-react";
 import { UserNav } from "@/components/dashboard/UserNav";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+// Custom navigation link component that closes mobile sidebar
+function NavLink({ href, children, isActive, tooltip }: {
+  href: string;
+  children: React.ReactNode;
+  isActive: boolean;
+  tooltip: string;
+}) {
+  const { setOpenMobile, isMobile } = useSidebar();
+
+  const handleClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
+  return (
+    <SidebarMenuButton asChild isActive={isActive} tooltip={tooltip}>
+      <Link href={href} onClick={handleClick}>
+        {children}
+      </Link>
+    </SidebarMenuButton>
+  );
+}
 
 export default function DashboardLayout({
   children,
@@ -47,24 +72,24 @@ export default function DashboardLayout({
         <SidebarContent>
           <SidebarMenu>
              <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname === '/dashboard'} tooltip="Dashboard">
-                <Link href="/dashboard"><LayoutDashboard /><span>Dashboard</span></Link>
-              </SidebarMenuButton>
+              <NavLink href="/dashboard" isActive={pathname === '/dashboard'} tooltip="Dashboard">
+                <LayoutDashboard /><span>Dashboard</span>
+              </NavLink>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/api-keys')} tooltip="API Keys">
-                <Link href="/dashboard/api-keys"><KeyRound /><span>API Keys</span></Link>
-              </SidebarMenuButton>
+              <NavLink href="/dashboard/api-keys" isActive={pathname.startsWith('/dashboard/api-keys')} tooltip="API Keys">
+                <KeyRound /><span>API Keys</span>
+              </NavLink>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/passwords')} tooltip="Passwords">
-                <Link href="/dashboard/passwords"><LockKeyhole /><span>Passwords</span></Link>
-              </SidebarMenuButton>
+              <NavLink href="/dashboard/passwords" isActive={pathname.startsWith('/dashboard/passwords')} tooltip="Passwords">
+                <LockKeyhole /><span>Passwords</span>
+              </NavLink>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={pathname.startsWith('/dashboard/notes')} tooltip="Secure Notes">
-                <Link href="/dashboard/notes"><FileText /><span>Secure Notes</span></Link>
-              </SidebarMenuButton>
+              <NavLink href="/dashboard/notes" isActive={pathname.startsWith('/dashboard/notes')} tooltip="Secure Notes">
+                <FileText /><span>Secure Notes</span>
+              </NavLink>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarContent>
