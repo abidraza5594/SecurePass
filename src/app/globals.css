@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 96.1%; /* f5f5f5 */
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 231 48% 48%; /* 3F51B5 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 174 100% 29%; /* 009688 */
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 231 48% 48%;
+    --radius: 0.5rem;
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 340 70% 55%;
+    --chart-4: 40 70% 55%;
+    --chart-5: 280 65% 60%;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 240 5.9% 90%;
+    --sidebar-ring: 231 48% 48%;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 0 0% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 231 48% 48%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 174 100% 29%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 231 48% 48%;
+
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 340 70% 55%;
+    --chart-4: 40 70% 55%;
+    --chart-5: 280 65% 60%;
+
+    /* Sidebar */
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 231 48% 48%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hide any development indicators or overlays */
+[data-nextjs-dev-overlay],
+[data-nextjs-dev-overlay] *,
+.__next-dev-overlay,
+.__next-dev-overlay *,
+#__next-dev-overlay,
+#__next-dev-overlay *,
+[class*="next-dev"],
+[class*="turbopack"],
+[id*="next-dev"],
+[id*="turbopack"],
+/* Hide any floating elements with N logo */
+div[style*="position: fixed"],
+div[style*="position: absolute"],
+[class*="floating"],
+[class*="indicator"],
+[class*="overlay"],
+/* Target specific patterns that might contain N logo */
+div:has(> div:contains("N")),
+span:contains("N"),
+button:contains("N"),
+/* Hide any circular elements that might be the N logo */
+div[style*="border-radius: 50%"],
+div[style*="border-radius: 100%"],
+button[style*="border-radius: 50%"],
+button[style*="border-radius: 100%"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* More aggressive hiding for any element containing just "N" */
+*:not(title):not(meta):not(script):not(style):not(link) {
+  &:has-text("N"):not(:has(*)) {
+    display: none !important;
+  }
+}
